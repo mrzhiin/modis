@@ -1,0 +1,135 @@
+@import "var";
+
+$p: ".#{$prefix}-";
+
+#{$p}form {
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
+  #{$p}mine {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 16px 0;
+    #{$p}nick,
+    #{$p}email,
+    #{$p}link {
+      width: calc(100% / 3 - 16px);
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      border-bottom: 1px solid #e0e0e0;
+      transition: all 0.2s;
+      will-change: border-color;
+      padding: 0 8px 8px 0;
+    }
+    #{$p}icon {
+      flex: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: calc(1em + 10px * 2);
+      color: #ccc;
+      #{$p}svg {
+        font-size: 1.5em;
+      }
+      #{$p}avatar {
+        width: 1.5em;
+        height: 1.5em;
+      }
+    }
+    #{$p}input {
+      font-size: inherit;
+      text-overflow: ellipsis;
+      flex: 1;
+      border: none;
+      outline: none;
+      width: 100%;
+      height: 1em;
+      line-height: 1;
+    }
+  }
+
+  #{$p}recipient {
+    background: $c3;
+    overflow: auto;
+    padding: 0 16px;
+    margin: 8px;
+    border-radius: 6px;
+    #{$p}info {
+      padding: 8px 0;
+      font-weight: bold;
+      border-bottom: solid 1px currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #{$p}content {
+      margin: 16px 0;
+      max-height: 10em;
+      overflow: auto;
+    }
+  }
+  #{$p}reply {
+    width: 100%;
+    box-sizing: border-box;
+    font: inherit;
+    height: 10em;
+    display: flex;
+    overflow: auto;
+    padding: 0 16px;
+    margin-top: 16px;
+    #{$p}input {
+      font-family: inherit;
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 0;
+      resize: none;
+    }
+    &#{$p}error {
+      border-color: red;
+    }
+  }
+  #{$p}bar {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    #{$p}error {
+      height: 100%;
+      font-size: 14px;
+      background: $error;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      #{$p}icon {
+        font-size: 1.5em;
+        margin-right: 8px;
+      }
+    }
+    #{$p}iconbtn {
+      margin: 0 16px;
+    }
+    #{$p}post {
+      border: none;
+      border-radius: 2px;
+      height: 36px;
+      min-width: 88px;
+      font-size: 14px;
+      font-weight: 500;
+      outline: 0;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #fff;
+      will-change: box-shadow;
+      box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+      opacity: 1;
+      transition: all 0.2s;
+      &:hover,
+      &:active {
+        opacity: 0.8;
+      }
+    }
+  }
+}

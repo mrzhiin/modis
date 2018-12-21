@@ -1,0 +1,11 @@
+@import "var";
+
+$p: ".#{$prefix}-";
+
+#{$p}svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  transition: all 0.2s;
+  will-change: fill;
+}
