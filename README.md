@@ -4,19 +4,19 @@ A comment system depends on Lencloud.
 
 **Warning:This is not perfect yet**
 
-##  Getting Started
+## Getting Started
 
 ### Installation
 
 You can download `modis.min.js` or `modis.slim.min.js`.
 
-* `modis.min.js`
+- `modis.min.js`
 
 ```html
 <script src="path/modis.min.js"></script>
 ```
 
-* `modis.slim.min.js`
+- `modis.slim.min.js`
 
 ```html
 <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.0/dist/av-min.js"></script>
@@ -28,11 +28,11 @@ You can download `modis.min.js` or `modis.slim.min.js`.
 ```html
 <div id="modis"></div>
 <script>
-    new Modis({
-        el: "#modis",
-        appId: "",
-        appKey: ""
-    });
+  new Modis({
+    el: "#modis",
+    appId: "",
+    appKey: ""
+  });
 </script>
 ```
 
@@ -45,8 +45,8 @@ You can download `modis.min.js` or `modis.slim.min.js`.
 | `appKey` | string         | Leancloud appKey        |         |
 | `locale` | string         | Language                | `zh-CN` |
 
-### *Languages*
+### _Languages_
 
-* `en`:English
+- `en`:English
 
-* `zh-CN`:Chinese Simplified
+- `zh-CN`:Chinese Simplified
