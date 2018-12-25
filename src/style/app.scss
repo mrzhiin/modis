@@ -1,0 +1,26 @@
+@import "var";
+
+$p: ".#{$prefix}-";
+
+#{$p}app-error {
+  margin-top: 24px;
+  font-size: 14px;
+  background: $error;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  #{$p}icon {
+    font-size: 1.5em;
+    margin-right: 8px;
+  }
+}
+
+#{$p}app-footer {
+  margin-top: 32px;
+  padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,56 @@
+@import "var";
+
+$p: ".#{$prefix}-";
+
+#{$p}comment-wrap {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  min-width: 300px;
+  #{$p}comment {
+    display: flex;
+    #{$p}left {
+      flex: none;
+      #{$p}avatar {
+        border-radius: 50%;
+        width: 8px * 6;
+      }
+    }
+    #{$p}right {
+      flex: 1;
+      margin-left: 16px;
+      #{$p}top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        #{$p}info {
+          #{$p}nick {
+            color: $c1;
+            font-size: 16px;
+            font-weight: bold;
+          }
+          #{$p}date {
+            color: $c4;
+          }
+        }
+        #{$p}to {
+          flex: 1;
+          margin: 0 24px;
+        }
+        #{$p}reply {
+        }
+      }
+      #{$p}content {
+        margin-top: 16px;
+        font-size: 16px;
+      }
+      #{$p}reply {
+        align-self: flex-end;
+      }
+    }
+  }
+  & & {
+    width: calc(100% - 16px);
+  }
+}
