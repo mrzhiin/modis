@@ -6,16 +6,14 @@ const common = require("./webpack.common");
 fse.removeSync("dist");
 
 const standard = merge(common, {
-  mode: "production",
   output: {
-    filename: `${process.env.npm_package_name}.min.js`,
-    path: path.resolve(__dirname, "dist")
+    filename: `modis.min.js`
   }
 });
 
 const slim = merge(standard, {
   output: {
-    filename: `${process.env.npm_package_name}.slim.min.js`
+    filename: `modis.slim.min.js`
   },
   externals: {
     "leancloud-storage": "AV"

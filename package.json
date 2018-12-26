@@ -1,5 +1,5 @@
 {
-  "name": "modis",
+  "name": "@mrzhiin/modis",
   "version": "1.0.0",
   "description": "A comment system",
   "scripts": {
@@ -34,5 +34,18 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-merge": "^4.1.5"
-  }
+  },
+  "main": "dist/modis.min.js",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrzhiin/Modis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mrzhiin/Modis/issues"
+  },
+  "homepage": "https://github.com/mrzhiin/Modis#readme"
 }
