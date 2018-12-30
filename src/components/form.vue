@@ -7,13 +7,7 @@
           <!-- <m-svg v-else name="email-outline"></m-svg> -->
           <m-svg name="email-outline"></m-svg>
         </div>
-        <input
-          v-model.lazy="email"
-          @blur="checkEmail"
-          class="modis-input"
-          type="email"
-          :placeholder="$t('email')"
-        >
+        <input v-model.lazy="email" class="modis-input" type="email" :placeholder="$t('email')">
       </div>
       <label class="modis-nick">
         <div class="modis-icon">
@@ -42,13 +36,15 @@
       <textarea v-else v-model.lazy="comment" class="modis-input"></textarea>
     </div>
     <div class="modis-bar">
-      <div>
+      <div class="modis-tip">
         <div class="modis-error" v-if="error">
-          <m-svg name="alert-circle" class="modis-icon"></m-svg>
-          {{error}}
+          <template>
+            <m-svg name="alert-circle" class="modis-icon"></m-svg>
+            {{error}}
+          </template>
         </div>
       </div>
-      <div>
+      <div class="modis-buttons">
         <m-button
           icon
           flat
@@ -90,16 +86,10 @@ export default {
       load: false
     };
   },
-  computed: {},
   watch: {
     isPreview: function(n) {
       if (n) {
         this.html = this.markToHtml();
-      }
-    },
-    emailInvalid: function(n) {
-      if (n) {
-        this.generateEmailHash();
       }
     }
   },

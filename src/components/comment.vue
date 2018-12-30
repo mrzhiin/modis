@@ -2,15 +2,18 @@
   <div class="modis-comment-wrap" ref="self">
     <div class="modis-comment">
       <div class="modis-left">
-        <img class="modis-avatar" :src="avatar" alt>
+        <img class="modis-avatar" alt :src="avatar" :srcset="avatarSrcset">
       </div>
       <div class="modis-right">
         <div class="modis-top">
           <div class="modis-info">
-            <div class="modis-nick">{{comment.nick||'Anonymous'}}</div>
+            <a class="modis-nick" :href="comment.link||false" ref="nofollow" target="_blank">
+              {{comment.nick||'Anonymous'}}
+              <m-svg v-if="comment.link" name="link"></m-svg>
+            </a>
             <div class="modis-date">{{commentDate}}</div>
+            <div class="modis-to" v-if="parentComment.nick">{{`@${parentComment.nick}`}}</div>
           </div>
-          <div class="modis-to" v-if="parentComment.nick">{{`@${parentComment.nick}`}}</div>
           <m-button icon flat class="modis-reply" @click="reply">
             <m-svg name="reply"></m-svg>
           </m-button>
@@ -60,7 +63,14 @@ export default {
     },
     avatar() {
       let hash = this.$_md5(this.comment.mail || "");
-      return `https://www.gravatar.com/avatar/${hash}`;
+      return `${this.$_config.gravatar}${hash}${
+        this.$_config.gravatarParameters
+      }`;
+    },
+    avatarSrcset() {
+      let size = 48;
+      return `${this.avatar}&s=${size * 1}px 1x,${this.avatar}&s=${size *
+        2}px 2x,${this.avatar}&s=${size * 3}px 3x`;
     },
     parentNick() {
       return this.$parent;
