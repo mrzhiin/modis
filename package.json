@@ -42,10 +42,10 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrzhiin/Modis.git"
+    "url": "git+https://github.com/mrzhiin/modis.git"
   },
   "bugs": {
-    "url": "https://github.com/mrzhiin/Modis/issues"
+    "url": "https://github.com/mrzhiin/modis/issues"
   },
-  "homepage": "https://github.com/mrzhiin/Modis#readme"
+  "homepage": "https://github.com/mrzhiin/modis#readme"
 }
