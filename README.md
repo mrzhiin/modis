@@ -38,12 +38,14 @@ You can download `modis.min.js` or `modis.slim.min.js`.
 
 ## Options
 
-| Option   | Type           | Description             | Default |
-| -------- | -------------- | ----------------------- | ------- |
-| `el`     | string/Element | CSS selector or Element |         |
-| `appId`  | string         | Leancloud appId         |         |
-| `appKey` | string         | Leancloud appKey        |         |
-| `locale` | string         | Language                | `zh-CN` |
+| Option               | Type           | Description                                              | Default                            |
+| -------------------- | -------------- | -------------------------------------------------------- | ---------------------------------- |
+| `el`                 | string/Element | CSS selector or Element                                  |                                    |
+| `appId`              | string         | Leancloud appId                                          |                                    |
+| `appKey`             | string         | Leancloud appKey                                         |                                    |
+| `locale`             | string         | Language                                                 | `zh-CN`                            |
+| `gravatar`           | string         | Gravatar request URL                                     | `https://www.gravatar.com/avatar/` |
+| `gravatarParameters` | string         | Gravatar request URL's combining parameters(Don't use s) | `?d=mp`                            |
 
 ### _Languages_
 

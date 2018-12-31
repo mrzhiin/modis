@@ -2,15 +2,14 @@ const path = require("path");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
 module.exports = {
+  mode: "production",
   entry: {
     main: "./src/index.js"
   },
   output: {
-    filename: `${process.env.npm_package_name}.min.js`,
+    filename: `modis.min.js`,
     path: path.resolve(__dirname, "dist"),
-    library: `${process.env.npm_package_name[0].toUpperCase()}${process.env.npm_package_name.slice(
-      1
-    )}`,
+    library: `Modis`,
     libraryTarget: "umd",
     libraryExport: "default"
   },
@@ -71,7 +70,7 @@ module.exports = {
           {
             loader: "svg-sprite-loader",
             options: {
-              symbolId: `${process.env.npm_package_name}-[name]`
+              symbolId: `modis-[name]`
             }
           },
           {

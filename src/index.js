@@ -13,6 +13,8 @@ const config = {
   appId: "",
   appKey: "",
   locale: "zh-CN",
+  gravatar: "https://www.gravatar.com/avatar/",
+  gravatarParameters: "?d=mp",
   attributes: [
     "objectId",
     "updatedAt",
