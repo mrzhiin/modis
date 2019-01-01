@@ -76,7 +76,7 @@ export default {
       return this.$parent;
     },
     commentDate() {
-      return this.comment.updatedAt.toLocaleString(this.$i18n.locale);
+      return this.comment.updatedAt.toLocaleString(this.$_config.locale);
     }
   },
   methods: {

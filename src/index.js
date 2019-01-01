@@ -1,7 +1,7 @@
 import Vue from "vue";
-import VueI18n from "vue-i18n";
 import AV from "leancloud-storage";
 import md5 from "blueimp-md5";
+import sI18n from "./plugins/sI18n";
 
 import App from "@/App.vue";
 import MButton from "@/components/button.vue";
@@ -37,7 +37,6 @@ class Modis {
     if (!options.appKey) throw "Please el";
 
     this.config = Object.assign({}, config, options);
-
     this.init();
   }
 
@@ -63,9 +62,8 @@ class Modis {
     let EventBus = new Vue();
     Vue.prototype.$_EventBus = EventBus;
 
-    // i18n
-    Vue.use(VueI18n);
-    const i18n = new VueI18n({
+    //sI18n
+    Vue.use(sI18n, {
       locale: this.config.locale
     });
 
@@ -75,7 +73,6 @@ class Modis {
 
     // mount
     new Vue({
-      i18n,
       render: h => h(App)
     }).$mount(this.config.el);
   }
