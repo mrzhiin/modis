@@ -7,19 +7,19 @@
           <!-- <m-svg v-else name="email-outline"></m-svg> -->
           <m-svg name="email-outline"></m-svg>
         </div>
-        <input v-model.lazy="email" class="modis-input" type="email" :placeholder="$t('email')">
+        <input v-model.lazy="email" class="modis-input" type="email" :placeholder="$_t('email')">
       </div>
       <label class="modis-nick">
         <div class="modis-icon">
           <m-svg name="account-circle-outline"></m-svg>
         </div>
-        <input v-model.lazy="nick" class="modis-input" type="text" :placeholder="$t('nickname')">
+        <input v-model.lazy="nick" class="modis-input" type="text" :placeholder="$_t('nickname')">
       </label>
       <div class="modis-link">
         <div class="modis-icon">
           <m-svg name="link"></m-svg>
         </div>
-        <input v-model.lazy="link" class="modis-input" type="text" :placeholder="$t('link')">
+        <input v-model.lazy="link" class="modis-input" type="text" :placeholder="$_t('link')">
       </div>
     </div>
     <div v-if="recipient!==null" class="modis-recipient">
@@ -70,6 +70,26 @@ import marked from "marked";
 import CComment from "@/components/comment.vue";
 
 export default {
+  _sI18n: {
+    en: {
+      email: "E-Mail",
+      nickname: "Nickname",
+      link: "Link",
+      error: {
+        email: "Please enter vaild email",
+        comment: "Please enter a comment"
+      }
+    },
+    "zh-CN": {
+      email: "邮箱",
+      nickname: "昵称",
+      link: "链接",
+      error: {
+        email: "请输入正确的邮箱",
+        comment: "请输入评论内容"
+      }
+    }
+  },
   data() {
     return {
       email: "",
@@ -100,12 +120,12 @@ export default {
           this.email
         )
       ) {
-        this.error = this.$t("error.email");
+        this.error = this.$_t("error.email");
       }
     },
     checkComment() {
       if (this.comment === "") {
-        this.error = this.$t("error.comment");
+        this.error = this.$_t("error.comment");
       }
     },
     generateEmailHash() {
@@ -182,7 +202,6 @@ export default {
     },
     listenReply(preload) {
       this.$_EventBus.$on("reply", preload => {
-        console.log(preload);
         this.recipient = preload.recipient;
       });
     },
@@ -198,27 +217,3 @@ export default {
   }
 };
 </script>
-
-
-<i18n>
-{
-  "en": {
-    "email":"E-Mail",
-    "nickname":"Nickname",
-    "link":"Link",
-    "error":{
-      "email":"Please enter vaild email",
-      "comment":"Please enter a comment"
-    }
-  },
-  "zh-CN": {
-    "email":"邮箱",
-    "nickname":"昵称",
-    "link":"链接",
-    "error":{
-      "email":"请输入正确的邮箱",
-      "comment":"请输入评论内容"
-    }
-  }
-}
-</i18n>

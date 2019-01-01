@@ -1,5 +1,8 @@
 # Modis
 
+[![](https://img.shields.io/travis/com/mrzhiin/modis.svg)](https://travis-ci.com/mrzhiin/modis)
+[![](https://img.shields.io/npm/v/@mrzhiin/modis.svg)](https://www.npmjs.com/package/@mrzhiin/modis)
+
 A comment system depends on Lencloud.
 
 **Warning:This is not perfect yet**
@@ -8,7 +11,13 @@ A comment system depends on Lencloud.
 
 ### Installation
 
-You can download `modis.min.js` or `modis.slim.min.js`.
+Use NPM
+
+```shell
+npm i @mrzhiin/modis
+```
+
+Use Browser you can download `modis.min.js` or `modis.slim.min.js`.
 
 - `modis.min.js`
 
