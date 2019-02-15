@@ -145,54 +145,108 @@ export default {
       this.error = "";
       this.checkEmail();
       this.checkComment();
-      if (this.error) return;
 
+      if (this.error) return;
       this.load = true;
 
       try {
-        //
         let recipient = this.recipient;
         let content = this.markToHtml();
-        let commentObject = new this.$_CommentObject();
-        let comment = {};
 
-        let object = {
-          mail: this.email,
-          nick: this.nick || "Anonymous",
-          link: this.link,
-          comment: content,
-          url: location.pathname
-        };
+        switch (this.$_config.backend) {
+          case "valine":
+            let commentObject = new this.$_CommentObject();
+            let comment = {};
 
-        if (recipient !== null) {
-          Object.assign(object, {
-            pid: this.recipient.comment.objectId,
-            rid: this.recipient.comment.rid || this.recipient.comment.objectId
-          });
+            let object = {
+              mail: this.email,
+              nick: this.nick || "Anonymous",
+              link: this.link,
+              comment: content,
+              url: location.pathname
+            };
+
+            if (recipient !== null) {
+              Object.assign(object, {
+                pid: this.recipient.comment.objectId,
+                rid:
+                  this.recipient.comment.rid || this.recipient.comment.objectId
+              });
+            }
+
+            commentObject.set(object);
+
+            let resultObject = await commentObject.save();
+
+            for (
+              let index = 0;
+              index < this.$_config.attributes.length;
+              index++
+            ) {
+              const attribute = this.$_config.attributes[index];
+              comment[attribute] = resultObject.get(attribute);
+            }
+
+            if (recipient !== null) {
+              if (recipient.comment.children) {
+                recipient.comment.children.push(comment);
+              } else {
+                this.$set(recipient.comment, "children", [comment]);
+              }
+            } else {
+              this.$_EventBus.$emit("post", { comment });
+            }
+
+            break;
+          case "leancloud":
+            {
+              let commentObject = new this.$_CommentObject();
+              let comment = {};
+              let object = {
+                mail: this.email,
+                nick: this.nick || "Anonymous",
+                link: this.link,
+                comment: content,
+                pageId: this.$_config.pageId
+              };
+              if (recipient !== null) {
+                Object.assign(object, {
+                  parentId: this.recipient.comment.objectId,
+                  rootId:
+                    this.recipient.comment.rootId ||
+                    this.recipient.comment.objectId
+                });
+              }
+              commentObject.set(object);
+              let resultObject = await commentObject.save();
+              for (
+                let index = 0;
+                index < this.$_config.commentAttr.length;
+                index++
+              ) {
+                const attribute = this.$_config.commentAttr[index];
+                comment[attribute] = resultObject.get(attribute);
+              }
+              if (recipient !== null) {
+                if (recipient.comment.children) {
+                  recipient.comment.children.push(comment);
+                } else {
+                  this.$set(recipient.comment, "children", [comment]);
+                }
+              } else {
+                this.$_EventBus.$emit("post", { comment });
+              }
+            }
+
+            break;
+          default:
+            break;
         }
 
-        commentObject.set(object);
-
-        let resultObject = await commentObject.save();
-
-        for (let index = 0; index < this.$_config.attributes.length; index++) {
-          const attribute = this.$_config.attributes[index];
-          comment[attribute] = resultObject.get(attribute);
-        }
-
-        if (recipient !== null) {
-          if (recipient.comment.children) {
-            recipient.comment.children.push(comment);
-          } else {
-            this.$set(recipient.comment, "children", [comment]);
-          }
-        } else {
-          this.$_EventBus.$emit("post", { comment });
-        }
-
-        this.reset();
+        this.resetCommentInput();
+        this.saveUser();
       } catch (error) {
-        this.error = error;
+        this.error = error.message;
       }
 
       this.load = false;
@@ -208,12 +262,36 @@ export default {
     cleanRecipient() {
       this.recipient = null;
     },
-    reset() {
+    resetCommentInput() {
       this.comment = "";
+    },
+    saveUser() {
+      localStorage.setItem(
+        "modis",
+        JSON.stringify({
+          email: this.email,
+          nick: this.nick,
+          link: this.link
+        })
+      );
+    },
+    loadUser() {
+      let data = localStorage.getItem("modis");
+
+      if (data) {
+        try {
+          let user = JSON.parse(data);
+
+          this.email = user.email;
+          this.nick = user.nick;
+          this.link = user.link;
+        } catch (error) {}
+      }
     }
   },
   created: function() {
     this.listenReply();
+    this.loadUser();
   }
 };
 </script>

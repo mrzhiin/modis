@@ -10,50 +10,152 @@ import "@/style/index.scss";
 
 const config = {
   el: null,
-  appId: "",
-  appKey: "",
+  backend: "valine",
   locale: "zh-CN",
   gravatar: "https://www.gravatar.com/avatar/",
   gravatarParameters: "?d=mp",
-  attributes: [
-    "objectId",
-    "updatedAt",
-    "createdAt",
-    "nick",
-    "link",
-    "mail",
-    "comment",
-    "ua",
-    "pid",
-    "rid"
-  ]
+  spa: false
+};
+
+const backendConfig = {
+  valine: {
+    appId: "",
+    appKey: "",
+    attributes: [
+      "objectId",
+      "updatedAt",
+      "createdAt",
+      "nick",
+      "link",
+      "mail",
+      "comment",
+      "ua",
+      "pid",
+      "rid"
+    ]
+  },
+  leancloud: {
+    appId: "",
+    appKey: "",
+    commentAttr: [
+      "objectId",
+      "updatedAt",
+      "createdAt",
+      "nick",
+      "link",
+      "mail",
+      "comment",
+      "userAgent",
+      "pageId",
+      "parentId",
+      "rootId"
+    ]
+  }
 };
 
 class Modis {
   constructor(options = {}) {
     // check
-    if (!options.el) throw "Please el";
-    if (!options.appId) throw "Please el";
-    if (!options.appKey) throw "Please el";
+    if (!options.el) {
+      throw "Please Provide el";
+    }
 
-    this.config = Object.assign({}, config, options);
+    this.config = Object.assign(
+      {},
+      config,
+      backendConfig[options.backend || config.backend],
+      options
+    );
     this.init();
   }
 
-  init() {
+  async init() {
     // VueConfig
     Vue.config.productionTip = false;
 
     // config
     Vue.prototype.$_config = this.config;
 
-    // AV
-    AV.init({
-      appId: this.config.appId,
-      appKey: this.config.appKey
-    });
-    Vue.prototype.$_AV = AV;
-    Vue.prototype.$_CommentObject = AV.Object.extend("Comment");
+    // backend
+    switch (this.config.backend) {
+      case "valine":
+        if (!this.config.spa) {
+          // check
+          if (!this.config.appId) {
+            throw "Please Provide appId";
+          }
+          if (!this.config.appKey) {
+            throw "Please Provide appKey";
+          }
+
+          AV.init({
+            appId: this.config.appId,
+            appKey: this.config.appKey
+          });
+        }
+
+        Vue.prototype.$_AV = AV;
+        Vue.prototype.$_CommentObject = AV.Object.extend("Comment");
+
+        break;
+      case "leancloud":
+        if (!this.config.spa) {
+          // check
+          if (!this.config.appId) {
+            throw "Please Provide appId";
+          }
+          if (!this.config.appKey) {
+            throw "Please Provide appKey";
+          }
+
+          AV.init({
+            appId: this.config.appId,
+            appKey: this.config.appKey
+          });
+        }
+
+        Vue.prototype.$_AV = AV;
+        Vue.prototype.$_CommentObject = AV.Object.extend("Comment");
+
+        let pathname = window.location.pathname;
+
+        let queryPage = async () => {
+          var query = new AV.Query("Page");
+          query.equalTo("pathname", pathname);
+
+          let pages = await query.find();
+
+          if (pages.length === 0) {
+            await addPage();
+          } else {
+            this.config.pageId = pages[0].id;
+          }
+        };
+
+        let addPage = async () => {
+          let PageObject = AV.Object.extend("Page");
+          let pageObject = new PageObject();
+
+          try {
+            pageObject.set({
+              pathname: pathname
+            });
+
+            let page = await pageObject.save();
+            this.config.pageId = page.id;
+          } catch (error) {
+            if (error.code === 137) {
+              await queryPage();
+            }
+          }
+        };
+
+        await queryPage();
+
+        break;
+      default:
+        break;
+    }
 
     // MD5
     Vue.prototype.$_md5 = md5;
@@ -77,5 +179,17 @@ class Modis {
     }).$mount(this.config.el);
   }
 }
+
+Modis.initAV = function(
+  options = {
+    appId: "",
+    appKey: ""
+  }
+) {
+  AV.init({
+    appId: options.appId,
+    appKey: options.appKey
+  });
+};
 
 export default Modis;
