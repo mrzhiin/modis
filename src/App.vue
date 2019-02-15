@@ -116,9 +116,14 @@ export default {
         queryTemp.push(query);
       }
 
-      let queryChildren = this.$_AV.Query.or(...queryTemp);
+      let childrenComments;
 
-      let childrenComments = await queryChildren.find();
+      if (queryTemp.length === 0) {
+        childrenComments = [];
+      } else {
+        let queryChildren = this.$_AV.Query.or(...queryTemp);
+        childrenComments = await queryChildren.find();
+      }
 
       let comments = rootComments.concat(childrenComments).map(x => {
         let comment = {};

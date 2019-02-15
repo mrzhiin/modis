@@ -13,7 +13,8 @@ const config = {
   backend: "valine",
   locale: "zh-CN",
   gravatar: "https://www.gravatar.com/avatar/",
-  gravatarParameters: "?d=mp"
+  gravatarParameters: "?d=mp",
+  spa: false
 };
 
 const backendConfig = {
@@ -78,36 +79,40 @@ class Modis {
     // backend
     switch (this.config.backend) {
       case "valine":
-        // check
-        if (!this.config.appId) {
-          throw "Please Provide appId";
-        }
-        if (!this.config.appKey) {
-          throw "Please Provide appKey";
-        }
+        if (!this.config.spa) {
+          // check
+          if (!this.config.appId) {
+            throw "Please Provide appId";
+          }
+          if (!this.config.appKey) {
+            throw "Please Provide appKey";
+          }
 
-        AV.init({
-          appId: this.config.appId,
-          appKey: this.config.appKey
-        });
+          AV.init({
+            appId: this.config.appId,
+            appKey: this.config.appKey
+          });
+        }
 
         Vue.prototype.$_AV = AV;
         Vue.prototype.$_CommentObject = AV.Object.extend("Comment");
 
         break;
       case "leancloud":
-        // check
-        if (!this.config.appId) {
-          throw "Please Provide appId";
-        }
-        if (!this.config.appKey) {
-          throw "Please Provide appKey";
-        }
+        if (!this.config.spa) {
+          // check
+          if (!this.config.appId) {
+            throw "Please Provide appId";
+          }
+          if (!this.config.appKey) {
+            throw "Please Provide appKey";
+          }
 
-        AV.init({
-          appId: this.config.appId,
-          appKey: this.config.appKey
-        });
+          AV.init({
+            appId: this.config.appId,
+            appKey: this.config.appKey
+          });
+        }
 
         Vue.prototype.$_AV = AV;
         Vue.prototype.$_CommentObject = AV.Object.extend("Comment");
@@ -174,5 +179,17 @@ class Modis {
     }).$mount(this.config.el);
   }
 }
+
+Modis.initAV = function(
+  options = {
+    appId: "",
+    appKey: ""
+  }
+) {
+  AV.init({
+    appId: options.appId,
+    appKey: options.appKey
+  });
+};
 
 export default Modis;
