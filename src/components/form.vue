@@ -163,7 +163,7 @@ export default {
               nick: this.nick || "Anonymous",
               link: this.link,
               comment: content,
-              url: location.pathname
+              url: this.$_config.pathnameGenerator()
             };
 
             if (recipient !== null) {

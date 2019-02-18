@@ -14,7 +14,10 @@ const config = {
   locale: "zh-CN",
   gravatar: "https://www.gravatar.com/avatar/",
   gravatarParameters: "?d=mp",
-  spa: false
+  spa: false,
+  pathnameGenerator: function() {
+    return window.location.pathname;
+  }
 };
 
 const backendConfig = {
@@ -70,11 +73,15 @@ class Modis {
   }
 
   async init() {
+    let EventBus = new Vue();
+
     // VueConfig
     Vue.config.productionTip = false;
 
-    // config
+    // Global
     Vue.prototype.$_config = this.config;
+    Vue.prototype.$_md5 = md5;
+    Vue.prototype.$_EventBus = EventBus;
 
     // backend
     switch (this.config.backend) {
@@ -114,14 +121,9 @@ class Modis {
           });
         }
 
-        Vue.prototype.$_AV = AV;
-        Vue.prototype.$_CommentObject = AV.Object.extend("Comment");
-
-        let pathname = window.location.pathname;
-
         let queryPage = async () => {
           var query = new AV.Query("Page");
-          query.equalTo("pathname", pathname);
+          query.equalTo("pathname", this.config.pathnameGenerator());
 
           let pages = await query.find();
 
@@ -138,7 +140,7 @@ class Modis {
 
           try {
             pageObject.set({
-              pathname: pathname
+              pathname: this.config.pathnameGenerator()
             });
 
             let page = await pageObject.save();
@@ -152,17 +154,13 @@ class Modis {
 
         await queryPage();
 
+        Vue.prototype.$_AV = AV;
+        Vue.prototype.$_CommentObject = AV.Object.extend("Comment");
+
         break;
       default:
         break;
     }
-
-    // MD5
-    Vue.prototype.$_md5 = md5;
-
-    // Eventbus
-    let EventBus = new Vue();
-    Vue.prototype.$_EventBus = EventBus;
 
     //sI18n
     Vue.use(sI18n, {
@@ -173,7 +171,6 @@ class Modis {
     Vue.component("MButton", MButton);
     Vue.component("MSvg", MSvg);
 
-    // mount
     new Vue({
       render: h => h(App)
     }).$mount(this.config.el);

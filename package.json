@@ -39,7 +39,9 @@
   "files": [
     "dist"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "vuepress": "^1.0.0-alpha.39"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mrzhiin/modis.git"

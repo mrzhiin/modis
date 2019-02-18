@@ -12,7 +12,7 @@ module.exports = {
     [
       "script",
       {
-        src: "./main.js"
+        src: "/main.js"
       }
     ]
   ],
