@@ -50,14 +50,14 @@ Use Browser you can download `modis.min.js` or `modis.slim.min.js`.
 | Option               | Type           | Description                                              | Default                            |
 | -------------------- | -------------- | -------------------------------------------------------- | ---------------------------------- |
 | `el`                 | string/Element | CSS selector or Element                                  |                                    |
+| `backend`            | string         | Backend Service                                          | `valine`                           |
 | `appId`              | string         | Leancloud appId                                          |                                    |
 | `appKey`             | string         | Leancloud appKey                                         |                                    |
 | `locale`             | string         | Language                                                 | `zh-CN`                            |
 | `gravatar`           | string         | Gravatar request URL                                     | `https://www.gravatar.com/avatar/` |
-| `gravatarParameters` | string         | Gravatar request URL's combining parameters(Don't use s) | `?d=mp`                            |
+| `gravatarParameters` | string         | Gravatar request URL's combining parameters(Don't use s) | `?d=mp&s=60`                       |
 
 ### _Languages_
 
 - `en`:English
-
 - `zh-CN`:Chinese Simplified

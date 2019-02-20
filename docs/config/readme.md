@@ -36,7 +36,7 @@ Gravatar 头像地址
 ### gravatarParameters
 
 - 类型：`string`
-- 默认值：`"?d=mp"`
+- 默认值：`"?d=mp&s=60"`
 
 请求 Gravatar 头像时附加的参数
 
@@ -56,8 +56,6 @@ Gravatar 头像地址
     return window.location.pathname;
   }
   ```
-
-默认使用 `window.location.pathname` 来区分不同页面，从而区分不同评论。
 
 ## valine 选项
 

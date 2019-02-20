@@ -13,7 +13,7 @@ const config = {
   backend: "valine",
   locale: "zh-CN",
   gravatar: "https://www.gravatar.com/avatar/",
-  gravatarParameters: "?d=mp",
+  gravatarParameters: "?d=mp&s=60",
   spa: false,
   pathnameGenerator: function() {
     return window.location.pathname;
