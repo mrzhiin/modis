@@ -77,7 +77,8 @@ export default {
       link: "Link",
       error: {
         email: "Please enter vaild email",
-        comment: "Please enter a comment"
+        comment: "Please enter a comment",
+        link: "Please enter vaild email"
       }
     },
     "zh-CN": {
@@ -86,7 +87,8 @@ export default {
       link: "链接",
       error: {
         email: "请输入正确的邮箱",
-        comment: "请输入评论内容"
+        comment: "请输入评论内容",
+        link: "请输入正确的链接"
       }
     }
   },
@@ -128,6 +130,15 @@ export default {
         this.error = this.$_t("error.comment");
       }
     },
+    checkLink() {
+      if (
+        !/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(
+          this.link
+        )
+      ) {
+        this.error = this.$_t("error.link");
+      }
+    },
     generateEmailHash() {
       this.emailHash = this.$_md5(this.email);
     },
@@ -145,6 +156,7 @@ export default {
       this.error = "";
       this.checkEmail();
       this.checkComment();
+      this.checkLink();
 
       if (this.error) return;
       this.load = true;
@@ -163,7 +175,7 @@ export default {
               nick: this.nick || "Anonymous",
               link: this.link,
               comment: content,
-              url: location.pathname
+              url: this.$_config.pathnameGenerator()
             };
 
             if (recipient !== null) {

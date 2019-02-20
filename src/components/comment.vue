@@ -7,7 +7,7 @@
       <div class="modis-right">
         <div class="modis-top">
           <div class="modis-info">
-            <a class="modis-nick" :href="comment.link||false" ref="nofollow" target="_blank">
+            <a class="modis-nick" :href="link||false" ref="nofollow" target="_blank">
               {{comment.nick||'Anonymous'}}
               <m-svg v-if="comment.link" name="link"></m-svg>
             </a>
@@ -69,14 +69,20 @@ export default {
     },
     avatarSrcset() {
       let size = 48;
-      return `${this.avatar}&s=${size * 1}px 1x,${this.avatar}&s=${size *
-        2}px 2x,${this.avatar}&s=${size * 3}px 3x`;
+      return `${this.avatar} 1x,${this.avatar}&s=${size * 2}px 2x,${
+        this.avatar
+      }&s=${size * 3}px 3x`;
     },
     parentNick() {
       return this.$parent;
     },
     commentDate() {
       return this.comment.updatedAt.toLocaleString(this.$_config.locale);
+    },
+    link() {
+      return /^(http:\/\/|https:\/\/)/.test(this.comment.link)
+        ? this.comment.link
+        : "http://" + this.comment.link;
     }
   },
   methods: {

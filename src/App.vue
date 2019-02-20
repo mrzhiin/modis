@@ -77,7 +77,7 @@ export default {
 
       let queryRoot = new this.$_AV.Query("Comment");
 
-      queryRoot.equalTo("url", location.pathname);
+      queryRoot.equalTo("url", this.$_config.pathnameGenerator());
       queryRoot.doesNotExist("rid");
       queryRoot.descending("createdAt");
       queryRoot.limit("10");
