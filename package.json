@@ -1,6 +1,6 @@
 {
   "name": "@mrzhiin/modis",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A comment system",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.development.js",
