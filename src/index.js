@@ -47,6 +47,8 @@ const backendConfig = {
       "nick",
       "link",
       "mail",
+      "email",
+      "emailMd5",
       "comment",
       "userAgent",
       "pageId",

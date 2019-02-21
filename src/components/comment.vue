@@ -51,9 +51,6 @@ export default {
       }
     }
   },
-  data() {
-    return {};
-  },
   computed: {
     hasChildren() {
       return this.comment.children && this.comment.children.length;
@@ -62,7 +59,9 @@ export default {
       return DOMPurify.sanitize(this.comment.comment);
     },
     avatar() {
-      let hash = this.$_md5(this.comment.mail || "");
+      let hash =
+        this.comment.emailMd5 ||
+        this.$_md5(this.comment.mail || this.comment.email || "");
       return `${this.$_config.gravatar}${hash}${
         this.$_config.gravatarParameters
       }`;

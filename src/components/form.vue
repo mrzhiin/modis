@@ -215,7 +215,8 @@ export default {
               let commentObject = new this.$_CommentObject();
               let comment = {};
               let object = {
-                mail: this.email,
+                email: this.email,
+                emailMd5: this.$_md5(this.email),
                 nick: this.nick || "Anonymous",
                 link: this.link,
                 comment: content,
