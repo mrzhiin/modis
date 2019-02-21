@@ -26,15 +26,9 @@ npm i @mrzhiin/modis
 
 ## 调用
 
-新建一个元素，用来显示评论
-
 ```html
 <div id="modis"></div>
-```
 
-之后运行 Modis
-
-```html
 <script>
   new Modis({
     el: "#modis",

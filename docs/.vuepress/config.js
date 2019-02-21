@@ -17,12 +17,14 @@ module.exports = {
     ]
   ],
   themeConfig: {
+    displayAllHeaders: true,
     nav: [
       { text: "指南", link: "/guide/" },
       { text: "配置", link: "/config/" }
     ],
     sidebar: {
-      "/guide/": ["", "use", "backend"]
+      "/guide/": ["", "use", "backend"],
+      "/config/": ["", "methods"]
     },
     repo: "https://github.com/mrzhiin/modis"
   }

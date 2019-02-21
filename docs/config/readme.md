@@ -1,4 +1,4 @@
-# 配置
+# 选项
 
 ## 基本选项
 
@@ -45,7 +45,7 @@ Gravatar 头像地址
 - 类型：`boolean`
 - 默认值：`false`
 
-重复调用 `new Modis` 会触发 Leancloud sdk 错误。此时需要先调用 [`Modis.initAv`](#initav) （不可重复调用），之后将该值设为 `true` 就可以重复调用 `new Modis` 。
+重复调用 `new Modis` 会触发 Leancloud sdk 错误。此时需要先调用 `Modis.initAv` （不可重复调用），之后将该值设为 `true` 就可以重复调用 `new Modis` 。
 
 ### pathnameGenerator
 
@@ -88,16 +88,3 @@ Leancloud 的 appId
 - 默认值：`""`
 
 Leancloud 的 appKey
-
-## 方法
-
-### initAV
-
-用来初始化 Leancloud sdk
-
-```js
-Modis.initAV({
-  appId: "", //leancoud appId
-  appKey: "" //leancloud appKey
-});
-```
