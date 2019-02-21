@@ -131,6 +131,8 @@ export default {
       }
     },
     checkLink() {
+      if (this.link === "") return;
+
       if (
         !/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(
           this.link
