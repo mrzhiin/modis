@@ -81,6 +81,8 @@ export default {
     link() {
       return /^(http:\/\/|https:\/\/)/.test(this.comment.link)
         ? this.comment.link
+        : this.comment.link === ""
+        ? false
         : "http://" + this.comment.link;
     }
   },
