@@ -1,7 +1,7 @@
 ---
 home: true
 heroText: Modis
-tagline: 依赖单独后端服务的评论服务（不完善）
+tagline: 依赖与 Leancloud 的评论系统
 actionText: 开始使用
 actionLink: /guide/
 footer: MIT Licensed
