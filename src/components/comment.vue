@@ -7,7 +7,7 @@
       <div class="modis-right">
         <div class="modis-top">
           <div class="modis-info">
-            <a class="modis-nick" :href="link||false" ref="nofollow" target="_blank">
+            <a class="modis-nick" :href="link||false" rel="nofollow noopener" target="_blank">
               {{comment.nick||'Anonymous'}}
               <m-svg v-if="comment.link" name="link"></m-svg>
             </a>
