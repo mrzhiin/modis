@@ -1,16 +1,38 @@
 <template>
-  <div class="modis" ref="self">
-    <c-form ref="input" :recipient="recipient" @cleanRecipient="cleanRecipient"></c-form>
+  <div
+    class="modis"
+    ref="self"
+  >
+    <c-form
+      ref="input"
+      :recipient="recipient"
+      @cleanRecipient="cleanRecipient"
+    />
     <div class="modis-comments">
-      <c-comment v-for="(it) in comments" :key="it.id" :comment="it"></c-comment>
+      <c-comment
+        v-for="it in comments"
+        :key="it.id"
+        :comment="it"
+      />
     </div>
-    <div v-if="error" class="modis-app-error">
-      <m-svg name="alert-circle" class="modis-icon"></m-svg>
-      {{error}}
+    <div
+      v-if="error"
+      class="modis-app-error"
+    >
+      <m-svg
+        name="alert-circle"
+        class="modis-icon"
+      />
+      {{ error }}
     </div>
     <div class="modis-app-footer">
-      <m-button v-if="!isLast" @click="getComments" round :load="isLoad">
-        <m-svg name="dots-horizontal"></m-svg>
+      <m-button
+        v-if="!isLast"
+        @click="getComments"
+        round
+        :load="isLoad"
+      >
+        <m-svg name="dots-horizontal" />
       </m-button>
     </div>
   </div>

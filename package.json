@@ -6,7 +6,8 @@
     "dev": "webpack-dev-server --config webpack.development.js",
     "build": "webpack --config webpack.production.js",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "lint": "eslint --ext .js,.vue src"
   },
   "author": "MrZhiin",
   "license": "MIT",
@@ -14,6 +15,8 @@
     "blueimp-md5": "^2.10.0",
     "css-loader": "^2.1.1",
     "dompurify": "^1.0.10",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.2.2",
     "fs-extra": "^7.0.1",
     "html-webpack-plugin": "^3.2.0",
     "leancloud-storage": "^3.12.0",

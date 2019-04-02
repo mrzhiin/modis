@@ -5,42 +5,83 @@
         <div class="modis-icon">
           <!-- <img v-if="emailHash" class="modis-avatar" :src="`https://www.gravatar.com/avatar/${emailHash}`" alt=""> -->
           <!-- <m-svg v-else name="email-outline"></m-svg> -->
-          <m-svg name="email-outline"></m-svg>
+          <m-svg name="email-outline" />
         </div>
-        <input v-model.lazy="email" class="modis-input" type="email" :placeholder="$_t('email')">
+        <input
+          v-model.lazy="email"
+          class="modis-input"
+          type="email"
+          :placeholder="$_t('email')"
+        >
       </div>
       <label class="modis-nick">
         <div class="modis-icon">
-          <m-svg name="account-circle-outline"></m-svg>
+          <m-svg name="account-circle-outline" />
         </div>
-        <input v-model.lazy="nick" class="modis-input" type="text" :placeholder="$_t('nickname')">
+        <input
+          v-model.lazy="nick"
+          class="modis-input"
+          type="text"
+          :placeholder="$_t('nickname')"
+        >
       </label>
       <div class="modis-link">
         <div class="modis-icon">
-          <m-svg name="link"></m-svg>
+          <m-svg name="link" />
         </div>
-        <input v-model.lazy="link" class="modis-input" type="text" :placeholder="$_t('link')">
+        <input
+          v-model.lazy="link"
+          class="modis-input"
+          type="text"
+          :placeholder="$_t('link')"
+        >
       </div>
     </div>
-    <div v-if="recipient!==null" class="modis-recipient">
+    <div
+      v-if="recipient!==null"
+      class="modis-recipient"
+    >
       <div class="modis-info">
-        {{recipient.comment.nick}}
-        <m-button flat icon color="error" size="small" @click="removeRecipient">
-          <m-svg name="clear"></m-svg>
+        {{ recipient.comment.nick }}
+        <m-button
+          flat
+          icon
+          color="error"
+          size="small"
+          @click="removeRecipient"
+        >
+          <m-svg name="clear" />
         </m-button>
       </div>
-      <div v-html="recipient.comment.comment" class="modis-content"></div>
+      <div
+        v-html="recipient.comment.comment"
+        class="modis-content"
+      />
     </div>
     <div class="modis-reply">
-      <div v-if="isPreview" v-html="html" class="modis-prep modis-input"></div>
-      <textarea v-else v-model.lazy="comment" class="modis-input"></textarea>
+      <div
+        v-if="isPreview"
+        v-html="html"
+        class="modis-prep modis-input"
+      />
+      <textarea
+        v-else
+        v-model.lazy="comment"
+        class="modis-input"
+      />
     </div>
     <div class="modis-bar">
       <div class="modis-tip">
-        <div class="modis-error" v-if="error">
+        <div
+          class="modis-error"
+          v-if="error"
+        >
           <template>
-            <m-svg name="alert-circle" class="modis-icon"></m-svg>
-            {{error}}
+            <m-svg
+              name="alert-circle"
+              class="modis-icon"
+            />
+            {{ error }}
           </template>
         </div>
       </div>
@@ -53,10 +94,13 @@
           :active="isPreview"
           size="small"
         >
-          <m-svg name="eye"></m-svg>
+          <m-svg name="eye" />
         </m-button>
-        <m-button @click="post" :load="load">
-          <m-svg name="send"></m-svg>
+        <m-button
+          @click="post"
+          :load="load"
+        >
+          <m-svg name="send" />
         </m-button>
       </div>
     </div>

@@ -1,24 +1,55 @@
 <template>
-  <div class="modis-comment-wrap" ref="self">
+  <div
+    class="modis-comment-wrap"
+    ref="self"
+  >
     <div class="modis-comment">
       <div class="modis-left">
-        <img class="modis-avatar" alt :src="avatar" :srcset="avatarSrcset">
+        <img
+          class="modis-avatar"
+          alt
+          :src="avatar"
+          :srcset="avatarSrcset"
+        >
       </div>
       <div class="modis-right">
         <div class="modis-top">
           <div class="modis-info">
-            <a class="modis-nick" :href="link||false" rel="nofollow noopener" target="_blank">
-              {{comment.nick||'Anonymous'}}
-              <m-svg v-if="comment.link" name="link"></m-svg>
+            <a
+              class="modis-nick"
+              :href="link||false"
+              rel="nofollow noopener"
+              target="_blank"
+            >
+              {{ comment.nick||'Anonymous' }}
+              <m-svg
+                v-if="comment.link"
+                name="link"
+              />
             </a>
-            <div class="modis-date">{{commentDate}}</div>
-            <div class="modis-to" v-if="parentComment.nick">{{`@${parentComment.nick}`}}</div>
+            <div class="modis-date">
+              {{ commentDate }}
+            </div>
+            <div
+              class="modis-to"
+              v-if="parentComment.nick"
+            >
+              {{ `@${parentComment.nick}` }}
+            </div>
           </div>
-          <m-button icon flat class="modis-reply" @click="reply">
-            <m-svg name="reply"></m-svg>
+          <m-button
+            icon
+            flat
+            class="modis-reply"
+            @click="reply"
+          >
+            <m-svg name="reply" />
           </m-button>
         </div>
-        <div v-html="safeContent" class="modis-content"></div>
+        <div
+          v-html="safeContent"
+          class="modis-content"
+        />
       </div>
     </div>
     <template v-if="hasChildren">
@@ -26,8 +57,8 @@
         v-for="(it) in comment.children"
         :key="it.id"
         :comment="it"
-        :parentComment="comment"
-      ></c-comment>
+        :parent-comment="comment"
+      />
     </template>
   </div>
 </template>
