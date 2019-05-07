@@ -21,15 +21,18 @@
               rel="nofollow noopener"
               target="_blank"
             >
-              {{ comment.nick||'Anonymous' }}
+              {{ comment.nick }}
               <m-svg
                 v-if="comment.link"
                 name="link"
               />
             </a>
-            <div class="modis-date">
+            <time
+              class="modis-date"
+              :datetime="comment.updatedAt.toISOString()"
+            >
               {{ commentDate }}
-            </div>
+            </time>
             <div
               class="modis-to"
               v-if="parentComment.nick"
@@ -93,6 +96,7 @@ export default {
       let hash =
         this.comment.emailMd5 ||
         this.$_md5(this.comment.mail || this.comment.email || "");
+
       return `${this.$_config.gravatar}${hash}${
         this.$_config.gravatarParameters
       }`;

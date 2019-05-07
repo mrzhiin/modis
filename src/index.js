@@ -15,6 +15,7 @@ const config = {
   gravatar: "https://www.gravatar.com/avatar/",
   gravatarParameters: "?d=mp&s=60",
   spa: false,
+  pageSize: 10,
   pathnameGenerator: function() {
     return window.location.pathname;
   }

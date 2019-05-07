@@ -102,7 +102,7 @@ export default {
       queryRoot.equalTo("url", this.$_config.pathnameGenerator());
       queryRoot.doesNotExist("rid");
       queryRoot.descending("createdAt");
-      queryRoot.limit("10");
+      queryRoot.limit(this.$_config.pageSize);
       queryRoot.select(attributes);
 
       {
@@ -167,7 +167,7 @@ export default {
       queryRoot.equalTo("pageId", this.$_config.pageId);
       queryRoot.doesNotExist("parentId");
       queryRoot.descending("createdAt");
-      queryRoot.limit("10");
+      queryRoot.limit(this.$_config.pageSize);
       queryRoot.select(commentAttr);
 
       {
@@ -220,6 +220,8 @@ export default {
           comment[attribute] = x.get(attribute);
         }
 
+        comment.nick = comment.nick || "Anonymous";
+
         return comment;
       });
 
@@ -256,7 +258,7 @@ export default {
       this.comments.push(...tree);
       this.isLoad = false;
 
-      if (tree.length < 10) this.isLast = true;
+      if (tree.length < this.$_config.pageSize) this.isLast = true;
     },
     listenReply() {
       this.$_EventBus.$on("reply", () => {

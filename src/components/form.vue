@@ -3,8 +3,6 @@
     <div class="modis-mine">
       <div class="modis-email">
         <div class="modis-icon">
-          <!-- <img v-if="emailHash" class="modis-avatar" :src="`https://www.gravatar.com/avatar/${emailHash}`" alt=""> -->
-          <!-- <m-svg v-else name="email-outline"></m-svg> -->
           <m-svg name="email-outline" />
         </div>
         <input
@@ -38,11 +36,13 @@
       </div>
     </div>
     <div
-      v-if="recipient!==null"
+      v-if="recipient !== null"
       class="modis-recipient"
     >
       <div class="modis-info">
-        {{ recipient.comment.nick }}
+        <span>
+          {{ recipient.comment.nick }}
+        </span>
         <m-button
           flat
           icon
@@ -71,39 +71,37 @@
       />
     </div>
     <div class="modis-bar">
-      <div class="modis-tip">
-        <div
-          class="modis-error"
-          v-if="error"
-        >
-          <template>
-            <m-svg
-              name="alert-circle"
-              class="modis-icon"
-            />
-            {{ error }}
-          </template>
-        </div>
-      </div>
-      <div class="modis-buttons">
-        <m-button
-          icon
-          flat
-          class="modis-iconbtn"
-          @click="isPreview=!isPreview"
-          :active="isPreview"
-          size="small"
-        >
-          <m-svg name="eye" />
-        </m-button>
-        <m-button
-          @click="post"
-          :load="load"
-        >
-          <m-svg name="send" />
-        </m-button>
-      </div>
+      <m-button
+        icon
+        flat
+        class="modis-iconbtn"
+        @click="isPreview = !isPreview"
+        :active="isPreview"
+        size="small"
+      >
+        <m-svg name="eye" />
+      </m-button>
+      <m-button
+        @click="post"
+        :load="load"
+      >
+        <m-svg name="send" />
+      </m-button>
     </div>
+    <transition name="modis-fade">
+      <div
+        v-if="error"
+        class="modis-error"
+      >
+        <template>
+          <m-svg
+            name="alert-circle"
+            class="modis-icon"
+          />
+          {{ error }}
+        </template>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -149,13 +147,23 @@ export default {
       isPreview: false,
       recipient: null,
       error: "",
-      load: false
+      load: false,
+      timer: null
     };
   },
   watch: {
     isPreview: function(n) {
       if (n) {
         this.html = this.markToHtml();
+      }
+    },
+    error: function(n) {
+      if (n) {
+        clearTimeout(this.timer);
+
+        this.timer = setTimeout(() => {
+          this.error = "";
+        }, 3000);
       }
     }
   },
@@ -263,7 +271,7 @@ export default {
               let object = {
                 email: this.email,
                 emailMd5: this.$_md5(this.email),
-                nick: this.nick || "Anonymous",
+                nick: this.nick,
                 link: this.link,
                 comment: content,
                 pageId: this.$_config.pageId
@@ -351,6 +359,9 @@ export default {
   created: function() {
     this.listenReply();
     this.loadUser();
+  },
+  beforeDestroy: function() {
+    clearTimeout(this.timer);
   }
 };
 </script>
