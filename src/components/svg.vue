@@ -1,6 +1,6 @@
 <template>
   <svg class="modis-svg">
-    <use :xlink:href="link"></use>
+    <use :xlink:href="link" />
   </svg>
 </template>
 

@@ -1,16 +1,38 @@
 <template>
-  <div class="modis" ref="self">
-    <c-form ref="input" :recipient="recipient" @cleanRecipient="cleanRecipient"></c-form>
+  <div
+    class="modis"
+    ref="self"
+  >
+    <c-form
+      ref="input"
+      :recipient="recipient"
+      @cleanRecipient="cleanRecipient"
+    />
     <div class="modis-comments">
-      <c-comment v-for="(it) in comments" :key="it.id" :comment="it"></c-comment>
+      <c-comment
+        v-for="it in comments"
+        :key="it.id"
+        :comment="it"
+      />
     </div>
-    <div v-if="error" class="modis-app-error">
-      <m-svg name="alert-circle" class="modis-icon"></m-svg>
-      {{error}}
+    <div
+      v-if="error"
+      class="modis-app-error"
+    >
+      <m-svg
+        name="alert-circle"
+        class="modis-icon"
+      />
+      {{ error }}
     </div>
     <div class="modis-app-footer">
-      <m-button v-if="!isLast" @click="getComments" round :load="isLoad">
-        <m-svg name="dots-horizontal"></m-svg>
+      <m-button
+        v-if="!isLast"
+        @click="getComments"
+        round
+        :load="isLoad"
+      >
+        <m-svg name="dots-horizontal" />
       </m-button>
     </div>
   </div>
@@ -80,7 +102,7 @@ export default {
       queryRoot.equalTo("url", this.$_config.pathnameGenerator());
       queryRoot.doesNotExist("rid");
       queryRoot.descending("createdAt");
-      queryRoot.limit("10");
+      queryRoot.limit(this.$_config.pageSize);
       queryRoot.select(attributes);
 
       {
@@ -145,7 +167,7 @@ export default {
       queryRoot.equalTo("pageId", this.$_config.pageId);
       queryRoot.doesNotExist("parentId");
       queryRoot.descending("createdAt");
-      queryRoot.limit("10");
+      queryRoot.limit(this.$_config.pageSize);
       queryRoot.select(commentAttr);
 
       {
@@ -198,6 +220,8 @@ export default {
           comment[attribute] = x.get(attribute);
         }
 
+        comment.nick = comment.nick || "Anonymous";
+
         return comment;
       });
 
@@ -234,7 +258,7 @@ export default {
       this.comments.push(...tree);
       this.isLoad = false;
 
-      if (tree.length < 10) this.isLast = true;
+      if (tree.length < this.$_config.pageSize) this.isLast = true;
     },
     listenReply() {
       this.$_EventBus.$on("reply", () => {

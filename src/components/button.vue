@@ -1,8 +1,16 @@
 <template>
-  <button class="modis-button" :class="classes" @click="click" :disabled="load">
+  <button
+    class="modis-button"
+    :class="classes"
+    @click="click"
+    :disabled="load"
+  >
     <div class="modis-container">
-      <m-svg v-if="load" name="three-dots"></m-svg>
-      <slot v-else></slot>
+      <m-svg
+        v-if="load"
+        name="three-dots"
+      />
+      <slot v-else />
     </div>
   </button>
 </template>
