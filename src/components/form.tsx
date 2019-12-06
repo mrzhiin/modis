@@ -3,14 +3,29 @@ import * as AV from "leancloud-storage";
 import Svg from "@/components/svg";
 import Button from "@/components/button";
 import md5 from "blueimp-md5";
-import marked from "marked";
-import DOMPurify from "dompurify";
 import Context from "@/utils/Context";
 import { Comment } from "@/components/comment";
 import { LeancloudConfig } from "@/index";
+import unified from "unified";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import rehypeSanitize from "rehype-sanitize";
+import rehypeParse from "rehype-parse";
+import rehypeStringify from "rehype-stringify";
 
 const LeancloudCommentObject = AV.Object.extend("Comment");
 const ValineCommentObject = AV.Object.extend("Comment");
+
+const markdownToHtmlParser = unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypeStringify)
+  .use(rehypeSanitize);
+
+const htmlSanitizeParser = unified()
+  .use(rehypeParse)
+  .use(rehypeStringify)
+  .use(rehypeSanitize);
 
 interface Props {
   inputEl: React.RefObject<HTMLDivElement>;
@@ -89,14 +104,13 @@ const Form = (props: Props) => {
     return true;
   };
   const markToHtml = () => {
-    return DOMPurify.sanitize(marked(content));
+    return String(markdownToHtmlParser.processSync(content));
   };
   const removeRecipient = () => {
     dispath({
       type: "clearReplt"
     });
   };
-
   const onSend = async () => {
     if (!(checkEmail() && checkContent() && checkLink())) {
       return;
@@ -202,7 +216,6 @@ const Form = (props: Props) => {
       setLoad(false);
     }
   };
-
   const togglePreview = () => {
     setIsPreviewt(!isPreview);
   };
