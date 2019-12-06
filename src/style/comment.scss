@@ -28,18 +28,28 @@ $p: ".#{$prefix}-";
             text-decoration: none;
             display: flex;
             align-items: center;
-            color: $c1;
+            color: var(--c1);
             font-size: 16px;
             font-weight: bold;
           }
+          #{$p}to {
+            cursor: pointer;
+            font-style: oblique;
+            font-size: 13px;
+          }
           #{$p}date {
-            color: $c4;
+            color: var(--c4);
+            font-size: 12px;
           }
         }
       }
       #{$p}content {
         margin-top: 16px;
         font-size: 16px;
+        a {
+          color: var(--c1);
+          text-decoration: none;
+        }
       }
       #{$p}reply {
         align-self: flex-end;
@@ -48,5 +58,12 @@ $p: ".#{$prefix}-";
   }
   & & {
     width: calc(100% - 16px);
+    #{$p}comment {
+      #{$p}left {
+        #{$p}avatar {
+          width: 8px * 4;
+        }
+      }
+    }
   }
 }

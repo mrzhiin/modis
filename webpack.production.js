@@ -1,9 +1,8 @@
 const merge = require("webpack-merge");
-const path = require("path");
 const fse = require("fs-extra");
 const common = require("./webpack.common");
 
-fse.removeSync("dist");
+fse.removeSync(common.output.path);
 
 const standard = merge(common, {
   output: {

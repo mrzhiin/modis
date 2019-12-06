@@ -3,15 +3,29 @@
 @import "./button.scss";
 @import "./svg.scss";
 @import "./app.scss";
-@import "./animate.scss";
 
 .modis {
   font-size: 14px;
-  color: #777;
+  color: var(--c5);
   line-height: 1.6;
-  font-family: -apple-system, "Noto Sans", "Helvetica Neue", Helvetica,
-    "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB",
-    "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN",
-    "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti",
-    SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC,
+    Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei,
+    sans-serif;
+  --primary: #1867c0;
+  --error: #ff5252;
+  --c1: #26baee;
+  --c2: #1a73e8;
+  --c3: #fff4e0;
+  --c4: #bbb;
+  --c5: #777;
+  &.modis--auto {
+    @media (prefers-color-scheme: dark) {
+      --c3: #1e1e1e;
+      --c5: #fff;
+    }
+  }
+  &.modis--dark {
+    --c3: #1e1e1e;
+    --c5: #fff;
+  }
 }

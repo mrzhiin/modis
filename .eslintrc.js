@@ -1,3 +1,8 @@
 module.exports = {
-  extends: ["plugin:vue/strongly-recommended"]
+  parserOptions: {
+    ecmaVersion: 2017
+  },
+  env: {
+    es6: true
+  }
 };

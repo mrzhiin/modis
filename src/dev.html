@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Modis</title>
+  </head>
+  <body>
+    <div id="modis"></div>
+    <script>
+      modis = new Modis({
+        el: "#modis",
+        theme:"light",
+        backend: "<%= process.env.BACKEND %>",
+        backendConfig: <%= process.env.BACKEND_CONFIG %>
+      });
+    </script>
+  </body>
+</html>

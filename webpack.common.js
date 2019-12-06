@@ -1,14 +1,16 @@
 const path = require("path");
-const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const Dotenv = require("dotenv-webpack");
+
+const OUTPUT_PATH = path.resolve(__dirname, "dist");
 
 module.exports = {
   mode: "production",
   entry: {
-    main: "./src/index.js"
+    main: "./src/index.ts"
   },
   output: {
     filename: `modis.min.js`,
-    path: path.resolve(__dirname, "dist"),
+    path: OUTPUT_PATH,
     library: `Modis`,
     libraryTarget: "umd",
     libraryExport: "default"
@@ -16,62 +18,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.vue$/,
-        loader: "vue-loader"
+        test: /\.tsx?$/,
+        loader: "awesome-typescript-loader",
+        exclude: /node_modules/
       },
       {
-        resourceQuery: /blockType=i18n/,
-        type: "javascript/auto",
-        loader: "@kazupon/vue-i18n-loader"
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"]
       },
       {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: "vue-style-loader"
-          },
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 1
-            }
-          },
-          {
-            loader: "postcss-loader"
-          }
-        ]
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          "vue-style-loader",
-          "css-loader",
-          {
-            loader: "sass-loader",
-            options: {
-              implementation: require("sass")
-            }
-          }
-        ]
-      },
-      {
-        test: /\.postcss$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: "vue-style-loader"
-          },
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 1
-            }
-          },
-          {
-            loader: "postcss-loader"
-          }
-        ]
+        test: /\.s[ac]ss$/i,
+        use: ["style-loader", "css-loader", "sass-loader"]
       },
       {
         test: /\.svg$/,
@@ -92,9 +49,9 @@ module.exports = {
       }
     ]
   },
-  plugins: [new VueLoaderPlugin()],
+  plugins: [new Dotenv()],
   resolve: {
-    extensions: [".js", ".vue"],
+    extensions: [".tsx", ".ts", ".js"],
     alias: {
       "@": path.resolve(__dirname, "src")
     }

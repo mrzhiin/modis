@@ -5,7 +5,7 @@ $p: ".#{$prefix}-";
 #{$p}app-error {
   margin-top: 24px;
   font-size: 14px;
-  background: $error;
+  background: var(--error);
   color: #fff;
   display: flex;
   align-items: center;
