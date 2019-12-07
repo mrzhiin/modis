@@ -3,11 +3,10 @@ import * as AV from "leancloud-storage";
 import Svg from "@/components/svg";
 import Button from "@/components/button";
 import md5 from "blueimp-md5";
-import marked from "marked";
-import DOMPurify from "dompurify";
 import Context from "@/utils/Context";
 import { Comment } from "@/components/comment";
 import { LeancloudConfig } from "@/index";
+import { markdownToHtmlParser } from "@/utils/parser";
 
 const LeancloudCommentObject = AV.Object.extend("Comment");
 const ValineCommentObject = AV.Object.extend("Comment");
@@ -89,14 +88,13 @@ const Form = (props: Props) => {
     return true;
   };
   const markToHtml = () => {
-    return DOMPurify.sanitize(marked(content));
+    return markdownToHtmlParser(content);
   };
   const removeRecipient = () => {
     dispath({
       type: "clearReplt"
     });
   };
-
   const onSend = async () => {
     if (!(checkEmail() && checkContent() && checkLink())) {
       return;
@@ -202,7 +200,6 @@ const Form = (props: Props) => {
       setLoad(false);
     }
   };
-
   const togglePreview = () => {
     setIsPreviewt(!isPreview);
   };

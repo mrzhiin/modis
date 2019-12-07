@@ -1,7 +1,8 @@
 # Modis
 
-[![](https://img.shields.io/travis/com/mrzhiin/modis.svg)](https://travis-ci.com/mrzhiin/modis)
-[![](https://img.shields.io/npm/v/@mrzhiin/modis.svg)](https://www.npmjs.com/package/@mrzhiin/modis)
+![npm (scoped)](https://img.shields.io/npm/v/@mrzhiin/modis)
+![Azure DevOps builds](https://img.shields.io/azure-devops/build/mrzhiin/c3878303-0b4f-4d59-b21e-51e685ef9e86/7)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@mrzhiin/modis)
 
 Comment service for web
 

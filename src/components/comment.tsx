@@ -1,9 +1,9 @@
 import React, { useMemo, useContext, useRef } from "react";
 import Svg from "@/components/svg";
 import Button from "@/components/button";
-import * as DOMPurify from "dompurify";
 import md5 from "blueimp-md5";
 import Context from "@/utils/Context";
+import { htmlSanitizeParser } from "@/utils/parser";
 
 interface Props {
   comment: Comment;
@@ -39,7 +39,7 @@ const Comment = (props: Props) => {
   const commentEl = useRef<HTMLDivElement>(null);
 
   const safeContent = useMemo(() => {
-    return DOMPurify.sanitize(comment.content);
+    return htmlSanitizeParser(comment.content);
   }, [comment]);
 
   const avatar = useMemo(() => {
