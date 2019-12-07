@@ -6,26 +6,10 @@ import md5 from "blueimp-md5";
 import Context from "@/utils/Context";
 import { Comment } from "@/components/comment";
 import { LeancloudConfig } from "@/index";
-import unified from "unified";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeSanitize from "rehype-sanitize";
-import rehypeParse from "rehype-parse";
-import rehypeStringify from "rehype-stringify";
+import { markdownToHtmlParser } from "@/utils/parser";
 
 const LeancloudCommentObject = AV.Object.extend("Comment");
 const ValineCommentObject = AV.Object.extend("Comment");
-
-const markdownToHtmlParser = unified()
-  .use(remarkParse)
-  .use(remarkRehype)
-  .use(rehypeStringify)
-  .use(rehypeSanitize);
-
-const htmlSanitizeParser = unified()
-  .use(rehypeParse)
-  .use(rehypeStringify)
-  .use(rehypeSanitize);
 
 interface Props {
   inputEl: React.RefObject<HTMLDivElement>;
@@ -104,7 +88,7 @@ const Form = (props: Props) => {
     return true;
   };
   const markToHtml = () => {
-    return String(markdownToHtmlParser.processSync(content));
+    return markdownToHtmlParser(content);
   };
   const removeRecipient = () => {
     dispath({
