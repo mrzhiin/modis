@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import * as AV from "leancloud-storage";
 import Svg from "@/components/svg";
 import Button from "@/components/button";
@@ -28,6 +28,14 @@ const Form = (props: Props) => {
   const [timer, setTimer] = useState(0);
 
   const { config, state, dispath, i18n } = useContext(Context);
+
+  const replyPlaceholder = useMemo(() => {
+    if (config.backend === "leancloud") {
+      return undefined;
+    } else if (state.recipient) {
+      return `@${state.recipient.nick}`;
+    }
+  }, [state.recipient, config.backend]);
 
   useEffect(() => {
     loadUser();
@@ -88,7 +96,12 @@ const Form = (props: Props) => {
     return true;
   };
   const markToHtml = () => {
-    return markdownToHtmlParser(content);
+    let p =
+      config.backend === "valine" && state.recipient
+        ? `<a class="at" href="#${state.recipient.objectId}">@${state.recipient.nick}</a> , `
+        : "";
+
+    return markdownToHtmlParser(p + content);
   };
   const removeRecipient = () => {
     dispath({
@@ -309,6 +322,7 @@ const Form = (props: Props) => {
           <textarea
             className="modis-input"
             value={content}
+            placeholder={replyPlaceholder}
             onChange={e => {
               setContent(e.target.value);
             }}
