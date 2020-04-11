@@ -1,6 +1,6 @@
 {
   "name": "@mrzhiin/modis",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Comment service for web",
   "scripts": {
     "dev": "webpack-dev-server",
