@@ -4,20 +4,21 @@ const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const fse = require("fs-extra");
+const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 
-const OUTPUT_PATH = path.resolve(__dirname, "dist");
+const OUTPUT_PATH = path.resolve(__dirname, "build");
 
 const common = {
   mode: "production",
   entry: {
-    main: "./src/index.ts"
+    main: "./src/index.ts",
   },
   output: {
-    filename: `modis.min.js`,
+    filename: `modis.js`,
     path: OUTPUT_PATH,
     library: `Modis`,
     libraryTarget: "umd",
-    libraryExport: "default"
+    libraryExport: "default",
   },
   module: {
     rules: [
@@ -26,16 +27,16 @@ const common = {
         loader: "ts-loader",
         exclude: /node_modules/,
         options: {
-          transpileOnly: true
-        }
+          transpileOnly: true,
+        },
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.s[ac]ss$/i,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.svg$/,
@@ -43,18 +44,18 @@ const common = {
           {
             loader: "svg-sprite-loader",
             options: {
-              symbolId: `modis-[name]`
-            }
+              symbolId: `modis-[name]`,
+            },
           },
           {
             loader: "svgo-loader",
             options: {
-              plugins: [{ cleanupAttrs: true }]
-            }
-          }
-        ]
-      }
-    ]
+              plugins: [{ cleanupAttrs: true }],
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [new Dotenv(), new webpack.ProgressPlugin()],
   resolve: {
@@ -63,9 +64,13 @@ const common = {
       "@": path.resolve(__dirname, "src"),
       react: "preact/compat",
       "react-dom/test-utils": "preact/test-utils",
-      "react-dom": "preact/compat"
-    }
-  }
+      "react-dom": "preact/compat",
+    },
+    plugins: [PnpWebpackPlugin],
+  },
+  resolveLoader: {
+    plugins: [PnpWebpackPlugin.moduleLoader(module)],
+  },
 };
 
 const development = {
@@ -75,30 +80,26 @@ const development = {
     compress: true,
     port: 8000,
     host: "0.0.0.0",
-    hot: true
+    hot: true,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: "src/dev.html",
-      inject: "head"
-    })
-  ]
+      inject: "head",
+    }),
+  ],
 };
 
-const standard = {
-  output: {
-    filename: `modis.min.js`
-  }
-};
+const standard = {};
 
 const slim = {
   output: {
-    filename: `modis.slim.min.js`
+    filename: `modis.slim.js`,
   },
   externals: {
-    "leancloud-storage": "AV"
-  }
+    "leancloud-storage": "AV",
+  },
 };
 
 module.exports = (env = {}) => {

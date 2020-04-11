@@ -1,7 +1,6 @@
 # Modis
 
 ![npm (scoped)](https://img.shields.io/npm/v/@mrzhiin/modis)
-![Azure DevOps builds](https://img.shields.io/azure-devops/build/mrzhiin/c3878303-0b4f-4d59-b21e-51e685ef9e86/7)
 ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@mrzhiin/modis)
 
 Comment service for web
@@ -23,14 +22,14 @@ Use Browser
 - Full
 
 ```html
-<script src="path/modis.min.js"></script>
+<script src="path/modis.js"></script>
 ```
 
 - Lite
 
 ```html
 <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.0/dist/av-min.js"></script>
-<script src="path/modis.slim.min.js"></script>
+<script src="path/modis.slim.js"></script>
 ```
 
 ### Usage
