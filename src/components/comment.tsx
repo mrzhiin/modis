@@ -62,6 +62,10 @@ const Comment = (props: Props) => {
     return comment.updatedAt.toLocaleString();
   }, [comment]);
 
+  const isShowTo = useMemo(() => {
+    return config.backend === "valine" ? false : true;
+  }, [config.backend]);
+
   const link = useMemo(() => {
     return /^(http:\/\/|https:\/\/)/.test(comment.link)
       ? comment.link
@@ -90,7 +94,7 @@ const Comment = (props: Props) => {
 
   return (
     <div className="modis-comment-wrap">
-      <div className="modis-comment" ref={commentEl}>
+      <div className="modis-comment" ref={commentEl} id={comment.objectId}>
         <div className="modis-left">
           <img className="modis-avatar" src={avatar} srcSet={avatarSrcset} />
         </div>
@@ -101,7 +105,7 @@ const Comment = (props: Props) => {
                 className="modis-nick"
                 rel="nofollow noopener"
                 target="_blank"
-                href={link || ""}
+                href={link || undefined}
               >
                 {comment.nick}
                 {comment.link && <Svg name="link" />}
@@ -109,7 +113,7 @@ const Comment = (props: Props) => {
               <time className="modis-date" dateTime={timeISO}>
                 {time}
               </time>
-              {parentComment && parentComment.nick && (
+              {isShowTo && parentComment && parentComment.nick && (
                 <div
                   className="modis-to"
                   onClick={scrollToParentComment}

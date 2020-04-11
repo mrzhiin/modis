@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /dist
+/build
 /.env
 
 # Log files
@@ -16,3 +17,10 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+# yarn2
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.yarn/cache
+.pnp.js

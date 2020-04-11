@@ -12,7 +12,7 @@ export interface Config {
   pageSize: number;
   pathnameGenerator(): string;
   theme: "auto" | "light" | "dark";
-  backend: "leancloud";
+  backend: "leancloud" | "valine";
   backendConfig: LeancloudConfig | ValineConfig;
 }
 
